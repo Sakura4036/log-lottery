@@ -406,9 +406,23 @@ function startLottery() {
     }
   }
   luckyCount.value = leftover < luckyCount.value ? leftover : luckyCount.value
+  // 随机抽取中奖者
   for (let i = 0; i < luckyCount.value; i++) {
     if (personPool.value.length > 0) {
-      const randomIndex = Math.round(Math.random() * (personPool.value.length - 1))
+      const defaultUser = personConfig.getDefaultUser
+      let randomIndex = Math.round(Math.random() * (personPool.value.length - 1))
+      const assignedPersonIndex = personPool.value.findIndex(p => p.uid === defaultUser.uid)
+      if (assignedPersonIndex >= 0) {
+        if (randomIndex === assignedPersonIndex && currentPrize.value.name !== defaultUser.prizeName) {
+          randomIndex = Math.round(Math.random() * (personPool.value.length - 1))
+        }
+      }
+      if (!defaultUser.isUsed && currentPrize.value.name === defaultUser.prizeName) {
+        if (assignedPersonIndex >= 0) {
+          randomIndex = assignedPersonIndex
+          personConfig.setDefaultUserUsed()
+        }
+      }
       luckyTargets.value.push(personPool.value[randomIndex])
       personPool.value.splice(randomIndex, 1)
     }

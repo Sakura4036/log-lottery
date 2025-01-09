@@ -11,6 +11,11 @@ export const usePersonConfig = defineStore('person', {
       personConfig: {
         allPersonList: [] as IPersonConfig[],
         alreadyPersonList: [] as IPersonConfig[],
+        defaultUser: {
+          uid: '',
+          prizeName: '',
+          isUsed: false
+        }
       },
     }
   },
@@ -50,6 +55,10 @@ export const usePersonConfig = defineStore('person', {
         return item.isWin === false
       })
     },
+    // 获取指定中奖配置
+    getDefaultUser(state) {
+      return state.personConfig.defaultUser
+    }
   },
   actions: {
     // 添加未中奖人员
@@ -61,7 +70,7 @@ export const usePersonConfig = defineStore('person', {
         this.personConfig.allPersonList.push(item)
       })
     },
-    // 添加已中奖人员
+    // 添加已中奖人员 
     addAlreadyPersonList(personList: IPersonConfig[], prize: IPrizeConfig | null) {
       if (personList.length <= 0) {
         return
@@ -116,12 +125,14 @@ export const usePersonConfig = defineStore('person', {
     deleteAllPerson() {
       this.personConfig.allPersonList = []
       this.personConfig.alreadyPersonList = []
+      this.personConfig.defaultUser.isUsed = false
     },
 
     // 删除所有人员
     resetPerson() {
       this.personConfig.allPersonList = []
       this.personConfig.alreadyPersonList = []
+      this.personConfig.defaultUser.isUsed = false
     },
     // 重置已中奖人员
     resetAlreadyPerson() {
@@ -143,8 +154,16 @@ export const usePersonConfig = defineStore('person', {
       this.personConfig = {
         allPersonList: [] as IPersonConfig[],
         alreadyPersonList: [] as IPersonConfig[],
+        defaultUser: {
+          uid: '',
+          prizeName: '',
+          isUsed: false
+        }
       }
     },
+    setDefaultUserUsed() {
+      this.personConfig.defaultUser.isUsed = true
+    }
   },
   persist: {
     enabled: true,
