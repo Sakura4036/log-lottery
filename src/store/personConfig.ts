@@ -144,10 +144,12 @@ export const usePersonConfig = defineStore('person', {
         item.prizeId = []
       })
       this.personConfig.alreadyPersonList = []
+      this.personConfig.defaultUser.isUsed = false
     },
     setDefaultPersonList() {
       this.personConfig.allPersonList = defaultPersonList
       this.personConfig.alreadyPersonList = []
+      this.personConfig.defaultUser.isUsed = false
     },
     // 重置所有配置
     reset() {
