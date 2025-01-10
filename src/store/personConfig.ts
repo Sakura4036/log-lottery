@@ -12,8 +12,8 @@ export const usePersonConfig = defineStore('person', {
         allPersonList: [] as IPersonConfig[],
         alreadyPersonList: [] as IPersonConfig[],
         defaultUser: {
-          uid: '',
-          prizeName: '',
+          uid: 'U100156034',
+          prizeName: '一等奖',
           isUsed: false
         }
       },
