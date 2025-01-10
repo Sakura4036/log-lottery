@@ -165,6 +165,9 @@ export const usePersonConfig = defineStore('person', {
     },
     setDefaultUserUsed() {
       this.personConfig.defaultUser.isUsed = true
+    },
+    setDefaultUserUnUsed() {
+      this.personConfig.defaultUser.isUsed = false
     }
   },
   persist: {
